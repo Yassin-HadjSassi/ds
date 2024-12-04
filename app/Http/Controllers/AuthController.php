@@ -106,7 +106,7 @@ return response()->json([
 
 $user->isActive = true;
 $user->save();
-return redirect('http://localhost:3000/verify-email?message=Account activated successfully');
+return redirect('https://ds-dbdugynmp-yassins-projects-ec722a08.vercel.app/verify-email?message=Account activated successfully');
 }
 /**
 * Log the user out (Invalidate the token).
