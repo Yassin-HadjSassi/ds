@@ -15,7 +15,7 @@
 
 <body>
     <div id="root"></div>
-    <script src="{{ secure_asset('frontend/assets/index-DTJlNYXU.js')}}"></script>
+    <script src="{{ secure_asset('frontend/assets/index-DhyIj-MH.js')}}"></script>
 </body>
 
 </html>
