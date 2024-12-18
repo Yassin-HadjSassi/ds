@@ -26,21 +26,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
 {
-    // Temporarily remove validation
-    // $validatedData = $request->validate([
-    //     'userID' => 'required|exists:users,id',
-    //     'status' => 'required|string',
-    //     'totalnumber' => 'required|integer|min:1',
-    //     'prixHT' => 'required|numeric|min:0',
-    //     'prixtotal' => 'required|numeric|min:0',
-    //     'orderLines' => 'required|array|min:1',
-    //     'orderLines.*.articleID' => 'required|exists:articles,refEHK',
-    //     'orderLines.*.qte' => 'required|integer|min:1',
-    //     'orderLines.*.unitprice' => 'required|numeric|min:0',
-    //     'orderLines.*.linetotal' => 'required|numeric|min:0',
-    // ]);
-
-    // Use request data directly (not recommended for production)
     $order = Order::create([
         'userID' => $request->userID,
         'status' => $request->status,
@@ -86,10 +71,8 @@ class OrderController extends Controller
     DB::beginTransaction();
     
     try {
-        // Find the order
         $order = Order::findOrFail($id);
 
-        // Update order details
         $order->update([
             'userID' => $request->userID,
             'status' => $request->status,
@@ -99,21 +82,16 @@ class OrderController extends Controller
             'date' => now()
         ]);
 
-        // Sync the order lines (handle add, update, and delete)
         $order_lines = $request->order_lines;
         
-        // Deleting removed order lines
         $existingOrderLines = $order->order_lines->pluck('id')->toArray();
         $newOrderLines = collect($order_lines)->pluck('id')->toArray();
         $deletedOrderLines = array_diff($existingOrderLines, $newOrderLines);
 
-        // Delete removed order lines
         OrderLines::whereIn('id', $deletedOrderLines)->delete();
 
-        // Add or update order lines
         foreach ($order_lines as $line) {
             if (isset($line['id'])) {
-                // Update existing order line
                 $orderLine = OrderLines::find($line['id']);
                 if ($orderLine) {
                     $orderLine->update([
@@ -125,7 +103,6 @@ class OrderController extends Controller
                     ]);
                 }
             } else {
-                // Add new order line
                 $order->order_lines()->create([
                     'articleID' => $line['articleID'],
                     'qte' => $line['qte'],
@@ -152,18 +129,14 @@ class OrderController extends Controller
     public function destroy($id)
 {
     try {
-        // Find the order by ID
         $order = Order::findOrFail($id);
 
-        // Check if the order status is 'Order Demander'
         if ($order->status !== 'Order Demander') {
             return response()->json("Vous ne pouvez supprimer qu'une commande avec le statut 'Order Demander'.", 400);
         }
 
-        // Delete associated order lines
-        $order->order_lines()->delete(); // Assuming you have a relationship 'orderLines' defined
+        $order->order_lines()->delete();
 
-        // Now delete the order itself
         $order->delete();
 
         return response()->json("Order and associated order lines deleted successfully.");
@@ -177,7 +150,7 @@ class OrderController extends Controller
     {
         try {
             $perPage = request()->input('pageSize', 5);
-            $orders = Order::paginate($perPage); // Basic pagination test
+            $orders = Order::paginate($perPage); 
     
             return response()->json([
                 'products' => $orders->items(),
