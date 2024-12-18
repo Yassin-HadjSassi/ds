@@ -1,3 +1,4 @@
+<?php 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\EmplacementController;
@@ -62,3 +63,9 @@ Route::resource('users', UserController::class);
 });
 
 });
+Route::options('{any}', function () {
+return response('', 200)
+->header('Access-Control-Allow-Origin', 'https://ehk.vercel.app')
+->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
+->header('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Authorization, Origin');
+})->where('any', '.*');
