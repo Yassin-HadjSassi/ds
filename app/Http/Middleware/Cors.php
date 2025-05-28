@@ -10,7 +10,7 @@ class Cors
     {
         if ($request->getMethod() === 'OPTIONS') {
             return response('', 200)
- ->header('Access-Control-Allow-Origin', 'https://ehk.vercel.app/')
+ ->header('Access-Control-Allow-Origin', '*')
  ->header('Access-Control-Allow-Methods', '*')
  ->header('Access-Control-Allow-Headers', '*')
  ->header('Access-Control-Allow-Credentials', 'false');
