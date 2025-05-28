@@ -15,7 +15,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\Cors; // Import the Cors middleware
 
 // Apply CORS middleware to all routes
-Route::middleware([Cors::class])->group(function () {
     // Auth routes for users
     Route::prefix('users')->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
@@ -53,4 +52,3 @@ Route::middleware([Cors::class])->group(function () {
     // Authenticated routes
     // Route::middleware(['jwt.auth'])->group(function () {
     // });
-});
