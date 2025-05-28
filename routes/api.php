@@ -35,22 +35,21 @@ Route::middleware([Cors::class])->group(function () {
     // Article resource routes
     Route::resource('articles', ArticleController::class);
 
+    Route::resource('categories', CategorieController::class);
+    Route::resource('formes', FormeController::class);
+    Route::get('/articles/categorie/{idcat}', [ArticleController::class, 'showArticlesByCAT']);
+    Route::get('/articles/forme/{idfor}', [ArticleController::class, 'showArticlesByFOR']);
+    Route::get('/articles/categorie/{idcat}/forme/{idfor}', [ArticleController::class, 'showArticlesByCATAndFOR']);
+    Route::get('/articlespaginate', [ArticleController::class, 'articlesPaginate']);
+    Route::get('/stocks/checkorder/{id}', [StockController::class, 'checkOrder']);
+    Route::post('/stocks/processorder', [StockController::class, 'processOrder']);
+    Route::get('/stocks/manque/{num}', [StockController::class, 'manque']);
+    Route::resource('stocks', StockController::class);
+    Route::resource('stocklines', StocklineController::class);
+    Route::resource('emplacements', EmplacementController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('orderlines', OrderLinesController::class);
+    Route::resource('users', UserController::class);
     // Authenticated routes
-    Route::middleware(['auth:api'])->group(function () {
-        Route::resource('categories', CategorieController::class);
-        Route::resource('formes', FormeController::class);
-        Route::get('/articles/categorie/{idcat}', [ArticleController::class, 'showArticlesByCAT']);
-        Route::get('/articles/forme/{idfor}', [ArticleController::class, 'showArticlesByFOR']);
-        Route::get('/articles/categorie/{idcat}/forme/{idfor}', [ArticleController::class, 'showArticlesByCATAndFOR']);
-        Route::get('/articlespaginate', [ArticleController::class, 'articlesPaginate']);
-        Route::get('/stocks/checkorder/{id}', [StockController::class, 'checkOrder']);
-        Route::post('/stocks/processorder', [StockController::class, 'processOrder']);
-        Route::get('/stocks/manque/{num}', [StockController::class, 'manque']);
-        Route::resource('stocks', StockController::class);
-        Route::resource('stocklines', StocklineController::class);
-        Route::resource('emplacements', EmplacementController::class);
-        Route::resource('orders', OrderController::class);
-        Route::resource('orderlines', OrderLinesController::class);
-        Route::resource('users', UserController::class);
-    });
+    // Route::middleware(['auth:api'])->group(function () {
 });
