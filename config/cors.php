@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'paths' => ['api/*', 'sanctum/csrf-cookie'], // Include your API routes
+    'paths' => ['api/api/*', 'sanctum/csrf-cookie'], // Include your API routes
     'allowed_methods' => ['*'], // Allow all methods (GET, POST, OPTIONS, etc.)
     'allowed_origins' => ['https://ehk.vercel.app'], // Your frontend domain
     'allowed_origins_patterns' => [],
