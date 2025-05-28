@@ -8,5 +8,5 @@ return [
     'allowed_headers' => ['*'], // Allow all headers
     'exposed_headers' => [],
     'max_age' => 0,
-    'supports_credentials' => true, // Set to true if using Sanctum or cookies
+    'supports_credentials' => false, // Set to true if using Sanctum or cookies
 ];
