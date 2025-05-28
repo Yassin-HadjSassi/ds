@@ -9,7 +9,7 @@ class Cors
     public function handle($request, Closure $next)
     {
         return $next($request)
-            ->header('Access-Control-Allow-Origin', '*') // Replace with your frontend domain
+            ->header('Access-Control-Allow-Origin', 'https://ehk.vercel.app') // Replace with your frontend domain
             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
             ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     }
