@@ -49,8 +49,8 @@ Route::middleware([Cors::class])->group(function () {
     Route::resource('emplacements', EmplacementController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('orderlines', OrderLinesController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class); // Authenticated routes
     // Authenticated routes
-    Route::middleware(['jwt.auth'])->group(function () {
-    });
+    // Route::middleware(['jwt.auth'])->group(function () {
+    // });
 });
